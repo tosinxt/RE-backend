@@ -13,6 +13,15 @@ const nestjs_pino_1 = require("nestjs-pino");
 const app_controller_1 = require("./app.controller");
 const app_service_1 = require("./app.service");
 const pdf_controller_1 = require("./pdf.controller");
+const ocr_service_1 = require("./ocr.service");
+const netsheet_controller_1 = require("./netsheet/netsheet.controller");
+const netsheet_service_1 = require("./netsheet/netsheet.service");
+const workflow_controller_1 = require("./netsheet/workflow.controller");
+const json_store_service_1 = require("./store/json-store.service");
+const domain_service_1 = require("./domain/domain.service");
+const domain_controller_1 = require("./domain/domain.controller");
+const firebase_admin_service_1 = require("./firebase/firebase-admin.service");
+const firestore_domain_service_1 = require("./domain/firestore-domain.service");
 let AppModule = class AppModule {
 };
 exports.AppModule = AppModule;
@@ -32,27 +41,28 @@ exports.AppModule = AppModule = __decorate([
                                 colorize: true,
                                 translateTime: 'SYS:standard',
                                 ignore: 'pid,hostname',
-                                singleLine: false,
-                                messageFormat: '{req.method} {req.url} -> {res.statusCode} ({responseTime}ms)',
                             },
                         }
                         : undefined,
-                    redact: {
-                        paths: [
-                            'req.headers.authorization',
-                            'req.headers.cookie',
-                            'password',
-                            '*.password',
-                            'token',
-                            '*.token',
-                        ],
-                        censor: '[REDACTED]',
-                    },
                 },
             }),
         ],
-        controllers: [app_controller_1.AppController, pdf_controller_1.PdfController],
-        providers: [app_service_1.AppService],
+        controllers: [
+            app_controller_1.AppController,
+            pdf_controller_1.PdfController,
+            netsheet_controller_1.NetSheetController,
+            workflow_controller_1.NetSheetWorkflowController,
+            domain_controller_1.DomainController,
+        ],
+        providers: [
+            app_service_1.AppService,
+            ocr_service_1.OcrService,
+            netsheet_service_1.NetSheetService,
+            json_store_service_1.JsonStoreService,
+            domain_service_1.DomainService,
+            firebase_admin_service_1.FirebaseAdminService,
+            firestore_domain_service_1.FirestoreDomainService,
+        ],
     })
 ], AppModule);
 //# sourceMappingURL=app.module.js.map
